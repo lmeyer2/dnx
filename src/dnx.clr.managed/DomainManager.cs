@@ -5,9 +5,9 @@ using System;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
+using dnx.clr.managed;
 using dnx.host;
 using Microsoft.Framework.Runtime;
-using dnx.clr.managed;
 
 public class DomainManager : AppDomainManager
 {
