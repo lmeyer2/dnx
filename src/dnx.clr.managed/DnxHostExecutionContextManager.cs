@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System.Globalization;
 using System.Threading;
 
 namespace dnx.clr.managed
@@ -12,7 +11,9 @@ namespace dnx.clr.managed
 
         public override HostExecutionContext Capture()
         {
-            return new DnxHostExecutionContext(base.Capture(), Thread.CurrentThread.CurrentCulture);
+            var threadContext = new ThreadContext(Thread.CurrentThread);
+
+            return new DnxHostExecutionContext(base.Capture(), threadContext);
         }
 
         public override object SetHostExecutionContext(HostExecutionContext hostExecutionContext)
@@ -26,12 +27,13 @@ namespace dnx.clr.managed
                     baseRevertParameter = base.SetHostExecutionContext(castHostExecutionContext.BaseContext);
                 }
 
-                var originalCulture = Thread.CurrentThread.CurrentCulture;
-                Thread.CurrentThread.CurrentCulture = castHostExecutionContext.ClientCulture;
+                // Capture the current status of the thread context and then update the values
+                // The captured snapshot will be used to revert the status later
+                var originalThreadContext = castHostExecutionContext.ThreadContext.CaptureAndReplace(Thread.CurrentThread);
 
                 return (RevertAction)(() =>
                 {
-                    Thread.CurrentThread.CurrentCulture = originalCulture;
+                    originalThreadContext.CaptureAndReplace(Thread.CurrentThread);
                     if (baseRevertParameter != null)
                     {
                         base.Revert(baseRevertParameter);
@@ -59,20 +61,20 @@ namespace dnx.clr.managed
 
         private class DnxHostExecutionContext : HostExecutionContext
         {
-            internal DnxHostExecutionContext(HostExecutionContext baseContext, CultureInfo clientCulture)
+            internal DnxHostExecutionContext(HostExecutionContext baseContext, ThreadContext threadContext)
             {
                 BaseContext = baseContext;
-                ClientCulture = clientCulture;
+                ThreadContext = threadContext;
             }
 
             private DnxHostExecutionContext(DnxHostExecutionContext original)
-                : this(CreateCopyHelper(original.BaseContext), original.ClientCulture)
+                : this(CreateCopyHelper(original.BaseContext), original.ThreadContext)
             {
             }
 
             public HostExecutionContext BaseContext { get; private set; }
 
-            public CultureInfo ClientCulture { get; private set; }
+            public ThreadContext ThreadContext { get; private set; }
 
             public override HostExecutionContext CreateCopy()
             {
