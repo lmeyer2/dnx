@@ -3,7 +3,7 @@
 
 using System.Runtime.Versioning;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Compilation
 {
     public interface ILibraryExportProvider
     {

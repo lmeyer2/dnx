@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Compilation
 {
     public interface IFileWatcher : IFileMonitor, IDisposable
     {

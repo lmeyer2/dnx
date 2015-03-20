@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Compilation
 {
-    public interface IMetadataReference
+    public interface IMetadataEmbeddedReference : IMetadataReference
     {
-        string Name { get; }
+        byte[] Contents { get; }
     }
 }
