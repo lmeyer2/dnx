@@ -728,7 +728,7 @@ namespace Microsoft.Framework.DesignTimeHost
             {
                 ContextId = Id,
                 MessageType = "Diagnostics",
-                Payload = JToken.FromObject(message)
+                Payload = message.ConvertToJson(_protocolVersion)
             });
         }
 
@@ -746,7 +746,7 @@ namespace Microsoft.Framework.DesignTimeHost
                 {
                     ContextId = Id,
                     MessageType = "AllDiagnostics",
-                    Payload = DiagnosticsMessage.ConvertToJson(ProtocolVersion, diagnostics)
+                    Payload = JToken.FromObject(diagnostics.Select(d => d.ConvertToJson(_protocolVersion)).ToList())
                 });
             }
 
