@@ -146,7 +146,7 @@ namespace Microsoft.Framework.PackageManager.Utils
             return results;
         }
 
-        private static bool IsAssemblyServiceable(string assemblyPath)
+        internal static bool IsAssemblyServiceable(string assemblyPath)
         {
             if (!File.Exists(assemblyPath))
             {
