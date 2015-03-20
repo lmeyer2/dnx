@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Caching
 {
     public class FileWriteTimeCacheDependency : ICacheDependency
     {
@@ -38,6 +38,4 @@ namespace Microsoft.Framework.Runtime
             return _path.GetHashCode();
         }
     }
-
-
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Microsoft.Framework.Runtime
+﻿namespace Microsoft.Framework.Runtime.Caching
 {
     public class NamedCacheDependency : ICacheDependency
     {
@@ -11,7 +9,6 @@ namespace Microsoft.Framework.Runtime
         {
             _name = name;
         }
-
 
         public void SetChanged()
         {

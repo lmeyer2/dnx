@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Caching
 {
     public static class CacheExtensions
     {
@@ -11,7 +11,7 @@ namespace Microsoft.Framework.Runtime
 
         public static T Get<T>(this ICache cache, object key, Func<CacheContext, T, T> factory)
         {
-            return (T)cache.Get(key, (ctx, oldValue) => factory(ctx, (T) oldValue));
+            return (T)cache.Get(key, (ctx, oldValue) => factory(ctx, (T)oldValue));
         }
     }
 }

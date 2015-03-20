@@ -11,6 +11,7 @@ using Microsoft.Framework.DesignTimeHost.Models;
 using Microsoft.Framework.DesignTimeHost.Models.IncomingMessages;
 using Microsoft.Framework.DesignTimeHost.Models.OutgoingMessages;
 using Microsoft.Framework.Runtime;
+using Microsoft.Framework.Runtime.Caching;
 using Microsoft.Framework.Runtime.Common.Impl;
 using Microsoft.Framework.Runtime.Compilation;
 using Microsoft.Framework.Runtime.Roslyn;
@@ -235,11 +236,13 @@ namespace Microsoft.Framework.DesignTimeHost
                         }
                     }
                     break;
+
                 case "Teardown":
                     {
                         // TODO: Implement
                     }
                     break;
+
                 case "ChangeConfiguration":
                     {
                         var data = new ChangeConfigurationMessage
@@ -249,22 +252,26 @@ namespace Microsoft.Framework.DesignTimeHost
                         _configuration.Value = data.Configuration;
                     }
                     break;
+
                 case "RefreshDependencies":
                 case "RestoreComplete":
                     {
                         _refreshDependencies.Value = default(Void);
                     }
                     break;
+
                 case "Rebuild":
                     {
                         _rebuild.Value = default(Void);
                     }
                     break;
+
                 case "FilesChanged":
                     {
                         _filesChanged.Value = default(Void);
                     }
                     break;
+
                 case "GetCompiledAssembly":
                     {
                         var libraryKey = new RemoteLibraryKey
@@ -299,6 +306,7 @@ namespace Microsoft.Framework.DesignTimeHost
                         });
                     }
                     break;
+
                 case "GetDiagnostics":
                     {
                         _requiresCompilation.Value = default(Void);
@@ -306,12 +314,13 @@ namespace Microsoft.Framework.DesignTimeHost
                         _waitingForDiagnostics.Add(message.Sender);
                     }
                     break;
+
                 case "Plugin":
                     {
                         var pluginMessage = message.Payload.ToObject<PluginMessage>();
                         var result = _pluginHandler.OnReceive(pluginMessage);
 
-                                _refreshDependencies.Value = default(Void);
+                        _refreshDependencies.Value = default(Void);
                         _pluginWorkNeeded.Value = default(Void);
 
                         if (result == PluginHandlerOnReceiveResult.RefreshDependencies)
@@ -1186,7 +1195,10 @@ namespace Microsoft.Framework.DesignTimeHost
 
             public TValue Value
             {
-                get { return _value; }
+                get
+                {
+                    return _value;
+                }
                 set
                 {
                     WasAssigned = true;
@@ -1248,8 +1260,11 @@ namespace Microsoft.Framework.DesignTimeHost
         private class ProjectCompilation
         {
             public ILibraryExport Export { get; set; }
+
             public IMetadataProjectReference ProjectReference { get; set; }
+
             public IDictionary<string, byte[]> EmbeddedReferences { get; set; }
+
             public IList<ICompilationMessage> Diagnostics { get; set; }
 
             public bool HasOutputs
@@ -1261,6 +1276,7 @@ namespace Microsoft.Framework.DesignTimeHost
             }
 
             public byte[] AssemblyBytes { get; set; }
+
             public byte[] PdbBytes { get; set; }
 
             public string AssemblyPath { get; set; }
@@ -1269,24 +1285,33 @@ namespace Microsoft.Framework.DesignTimeHost
         private class CompiledAssemblyState
         {
             public ConnectionContext Connection { get; set; }
+
             public bool AssemblySent { get; set; }
+
             public int Version { get; set; }
         }
 
         private class RemoteLibraryKey
         {
             public int Version { get; set; }
+
             public string Name { get; set; }
+
             public string TargetFramework { get; set; }
+
             public string Configuration { get; set; }
+
             public string Aspect { get; set; }
         }
 
         private class LibraryKey : ILibraryKey
         {
             public string Name { get; set; }
+
             public FrameworkName TargetFramework { get; set; }
+
             public string Configuration { get; set; }
+
             public string Aspect { get; set; }
         }
 

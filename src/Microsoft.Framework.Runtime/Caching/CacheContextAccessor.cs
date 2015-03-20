@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Caching
 {
     public class CacheContextAccessor : ICacheContextAccessor
     {
@@ -19,5 +19,4 @@ namespace Microsoft.Framework.Runtime
             set { ThreadInstance = value; }
         }
     }
-
 }

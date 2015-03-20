@@ -12,7 +12,9 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
+using Microsoft.Framework.Runtime.Caching;
 using Microsoft.Framework.Runtime.Common.DependencyInjection;
+using Microsoft.Framework.Runtime.Compilation;
 
 namespace Microsoft.Framework.Runtime.Roslyn
 {
@@ -350,6 +352,7 @@ namespace Microsoft.Framework.Runtime.Roslyn
         private class CompilationModules : IDisposable
         {
             public IAssemblyLoadContext LoadContext { get; set; }
+
             public List<ICompileModule> Modules { get; set; }
 
             public void Dispose()

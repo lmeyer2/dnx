@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
+using Microsoft.Framework.Runtime.Compilation;
 using NuGet;
 
 namespace Microsoft.Framework.Runtime

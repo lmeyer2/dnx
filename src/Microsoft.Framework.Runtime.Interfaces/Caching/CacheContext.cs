@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Caching
 {
     public class CacheContext
     {

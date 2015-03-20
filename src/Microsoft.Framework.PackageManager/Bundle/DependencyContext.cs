@@ -4,6 +4,7 @@
 using System.Linq;
 using System.Runtime.Versioning;
 using Microsoft.Framework.Runtime;
+using Microsoft.Framework.Runtime.Caching;
 using NuGet;
 
 namespace Microsoft.Framework.PackageManager.Bundle
@@ -34,11 +35,17 @@ namespace Microsoft.Framework.PackageManager.Bundle
         }
 
         public IProjectResolver ProjectResolver { get; set; }
+
         public NuGetDependencyResolver NuGetDependencyResolver { get; set; }
+
         public ProjectReferenceDependencyProvider ProjectReferenceDependencyProvider { get; set; }
+
         public DependencyWalker DependencyWalker { get; set; }
+
         public FrameworkName FrameworkName { get; set; }
+
         public ILookup<string, PackageAssembly> PackageAssemblies { get; set; }
+
         public string PackagesDirectory { get; private set; }
 
         public void Walk(string projectName, SemanticVersion projectVersion)
@@ -68,6 +75,7 @@ namespace Microsoft.Framework.PackageManager.Bundle
                 case "mono":
                 case "clr":
                     return VersionUtility.ParseFrameworkName("dnx451");
+
                 case "coreclr":
                     return VersionUtility.ParseFrameworkName("dnxcore50");
             }

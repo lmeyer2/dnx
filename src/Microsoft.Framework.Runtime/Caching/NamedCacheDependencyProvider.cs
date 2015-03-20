@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Caching
 {
     public class NamedCacheDependencyProvider : INamedCacheDependencyProvider
     {

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Versioning;
+using Microsoft.Framework.Runtime.Caching;
+using Microsoft.Framework.Runtime.Compilation;
 
 namespace Microsoft.Framework.Runtime.Roslyn
 {

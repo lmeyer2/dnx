@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.Framework.Runtime
+namespace Microsoft.Framework.Runtime.Caching
 {
     public class Cache : ICache
     {
@@ -32,7 +32,6 @@ namespace Microsoft.Framework.Runtime
 
             return entry.Value.Result;
         }
-
 
         private Lazy<CacheEntry> AddEntry(object k, Func<CacheContext, object> acquire)
         {
@@ -120,7 +119,6 @@ namespace Microsoft.Framework.Runtime
 
             public CacheEntry()
             {
-
             }
 
             public IEnumerable<ICacheDependency> Dependencies { get { return _dependencies ?? Enumerable.Empty<ICacheDependency>(); } }
@@ -146,5 +144,4 @@ namespace Microsoft.Framework.Runtime
             }
         }
     }
-
 }
