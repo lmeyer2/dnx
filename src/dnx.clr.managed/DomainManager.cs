@@ -40,7 +40,7 @@ public class DomainManager : AppDomainManager
         {
             if (_hostExecutionContextManager == null)
             {
-                _hostExecutionContextManager = new AspNetHostExecutionContextManager();
+                _hostExecutionContextManager = new DnxHostExecutionContextManager();
             }
 
             return _hostExecutionContextManager;
