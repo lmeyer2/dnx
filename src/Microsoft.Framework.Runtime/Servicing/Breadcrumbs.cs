@@ -63,7 +63,7 @@ namespace Microsoft.Framework.Runtime.Servicing
                 return false;
             }
 
-            return package.LockFileLibrary.Serviceable;
+            return package.LockFileLibrary.IsServiceable;
         }
 
         public void AddBreadcrumb(string packageId, SemanticVersion packageVersion)
